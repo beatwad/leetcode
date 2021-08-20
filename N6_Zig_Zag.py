@@ -1,20 +1,20 @@
 class Solution:
     def convert(self, s: str, numRows: int) -> str:
-        l = [''] * numRows
+        res = [''] * numRows
         incr = 1
         r = 0
         if numRows == 1:
             return s
-        for i, j in enumerate(s):
-            l[r] += j
+        for v in s:
+            res[r] += v
             r += incr
-            if r == numRows:
-                r = numRows - 2
-                incr = -1
             if r < 0:
                 r = 1
                 incr = 1
-        return ''.join(l)
+            if r == numRows:
+                r = numRows - 2
+                incr = -1
+        return ''.join(res)
 
 
 if __name__ == '__main__':
