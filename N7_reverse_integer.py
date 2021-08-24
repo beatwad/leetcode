@@ -32,3 +32,5 @@ if __name__ == '__main__':
     assert sol.reverse(-8463847412) == -2**31
     assert sol.reverse(-9463847412) == 0
 
+    print(64 >> 1)
+
