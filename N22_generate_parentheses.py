@@ -1,6 +1,5 @@
 class Solution:
     def generateParenthesis(self, n: int) -> list:
-
         def helper(st='', left=0, right=0):
             temp = list()
             if len(st) == 2*n:
