@@ -16,7 +16,7 @@ if __name__ == '__main__':
     assert sol.groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat"]) == [['eat', 'tea', 'ate'], ['tan', 'nat'],
                                                                              ['bat']]
     assert sol.groupAnagrams(["eat", "tea", "tan", "ate", "nat", "bat", ""]) == [['eat', 'tea', 'ate'], ['tan', 'nat'],
-                                                                                 ['bat'], [""]]
+                                                                                 ['bat'], ['']]
     assert sol.groupAnagrams([""]) == [[""]]
     assert sol.groupAnagrams(["a"]) == [["a"]]
 
