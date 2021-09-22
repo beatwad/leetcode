@@ -24,7 +24,7 @@ class Solution:
                     vert.parent = u
                     queue.append(vert)
 
-    def path(self, gr, v_end):
+    def path(self, gr: Graph, v_end):
         v = gr.vertexes[v_end]
         s_path = list()
         while v:
@@ -42,7 +42,6 @@ if __name__ == '__main__':
     gr.add_edge('s', 't', 1, False)
     gr.add_edge('t', 'x', 1, False)
     gr.add_edge('t', 'y', 1, False)
-    gr.add_edge('x', 'z', 1, False)
     gr.add_edge('z', 'y', 1, False)
     gr.add_edge('y', 'w', 1, False)
 
@@ -61,5 +60,4 @@ if __name__ == '__main__':
     sol.bfs(gr, 'x')
     assert gr.vertexes['s'].dist == 2
     assert sol.path(gr, 'x') == ['x']
-    assert sol.path(gr, 'w') == ['x', 'z', 'y', 'w']
-
+    assert sol.path(gr, 'w') == ['x', 't', 'y', 'w']

@@ -8,6 +8,8 @@ class Vertex:
         self.color = 'white'
         self.dist = inf
         self.parent = None
+        self.t_b = 0
+        self.t_f = 0
 
 
 class Graph:
