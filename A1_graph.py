@@ -4,17 +4,25 @@ from math import inf
 class Vertex:
     def __init__(self, label):
         self.label = label
-        self.adj = dict()
+        self.adj = dict()       # dictionary of adjacent vertexes
         self.color = 'white'
-        self.dist = inf
-        self.parent = None
-        self.t_b = 0
-        self.t_f = 0
+        self.dist = inf         # distance to vertex from initial vertex
+        self.parent = None      # parent vertex
+        self.t_b = 0            # time of first meet by DFS algo
+        self.t_f = 0            # time of last meet by DFS algo
+
+
+class Edge:
+    def __init__(self, begin, end, weight):
+        self.begin = begin
+        self.end = end
+        self.weight = weight
 
 
 class Graph:
     def __init__(self, vertexes=None):
         self.vertexes = dict()
+        self.edges = dict()
         if vertexes:
             for v in vertexes:
                 self.vertexes[v] = Vertex(v)
@@ -28,8 +36,10 @@ class Graph:
     def add_edge(self, v_begin, v_end, weight, oriented=True):
         if v_begin in self.vertexes and v_end in self.vertexes:
             self.vertexes[v_begin].adj[v_end] = weight
+            self.edges[(v_begin, v_end)] = weight
             if not oriented:
                 self.vertexes[v_end].adj[v_begin] = weight
+                self.edges[(v_end, v_begin)] = weight
             return True
         return False
 
@@ -57,4 +67,5 @@ if __name__ == '__main__':
     gr.add_edge('w', 'y', 5)
     gr.add_edge('w', 'z', 6)
     gr.print_graph()
+
 

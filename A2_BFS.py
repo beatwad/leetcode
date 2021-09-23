@@ -3,7 +3,13 @@ from math import inf
 
 
 class Solution:
-    def bfs(self, gr: Graph, s):
+    def bfs(self, gr: Graph, s) -> None:
+        """
+        Breadth First Search in Graph
+        :param gr: Graph
+        :param s: int or str
+        :return: None
+        """
         for v in gr.vertexes.values():
             v.color = 'white'
             v.dist = inf
@@ -25,6 +31,12 @@ class Solution:
                     queue.append(vert)
 
     def path(self, gr: Graph, v_end):
+        """
+        Shows path from initial vertex of Graph to another vertex
+        :param gr: Graph
+        :param v_end: int or str
+        :return: list[int] or list[str]
+        """
         v = gr.vertexes[v_end]
         s_path = list()
         while v:

@@ -6,7 +6,12 @@ class Solution:
     def __init__(self):
         self.time = 0
 
-    def dfs(self, gr: Graph):
+    def dfs(self, gr: Graph) -> None:
+        """
+        Depth First Search in Graph
+        :param gr: Graph
+        :return: None
+        """
         for u in gr.vertexes.values():
             u.color = 'white'
             u.parent = None
@@ -16,7 +21,13 @@ class Solution:
             if u.color == 'white':
                 self.dfs_visit(gr, u)
 
-    def dfs_visit(self, gr: Graph, u: Vertex):
+    def dfs_visit(self, gr: Graph, u: Vertex) -> None:
+        """
+        DFS helper function
+        :param gr: Graph
+        :param u: Vertex
+        :return: None
+        """
         self.time += 1
         u.t_b = self.time
         u.color = 'gray'
@@ -29,7 +40,12 @@ class Solution:
         self.time += 1
         u.t_f = self.time
 
-    def find_strong_conn_components(self, gr):
+    def find_strong_conn_components(self, gr) -> list:
+        """
+        Function for finding of strongly connected components of Graph
+        :param gr: Graph
+        :return: list[list[int]] or list[list[str]]
+        """
         self.dfs(gr)
         scc = list()
         for u in gr.vertexes.values():
