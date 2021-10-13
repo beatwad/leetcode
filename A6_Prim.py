@@ -1,4 +1,3 @@
-from math import inf
 from A1_graph import Graph
 
 
@@ -51,3 +50,23 @@ if __name__ == '__main__':
     #      x  -5- z -3- n
 
     assert sol.mst_prim(gr, 's') == [('s', 't'), ('s', 'x'), ('t', 'y'), ('y', 'z'), ('y', 'w'), ('z', 'n')]
+
+    gr = Graph(['s', 't', 'x', 'y', 'z', 'w', 'n'])
+    gr.add_edge('s', 't', 3, False)
+    gr.add_edge('t', 'x', 2, False)
+    gr.add_edge('t', 'y', 2, False)
+    gr.add_edge('y', 'z', 4, False)
+    gr.add_edge('y', 'w', 1, False)
+    gr.add_edge('k', 'l', 8, False)
+    gr.add_edge('l', 'o', 9, False)
+    gr.add_edge('z', 'n', 3, False)
+    gr.add_edge('x', 'z', 5, False)
+    gr.add_edge('x', 's', 3, False)
+
+    # s -3- t -2- y -1- w
+    #  \    |     |
+    #   3   2     4
+    #    \  |     |
+    #      x  -5- z -3- n
+
+    assert sol.mst_prim(gr, 's') == [('s', 't'), ('t', 'x'), ('t', 'y'), ('y', 'z'), ('y', 'w'), ('z', 'n')]
