@@ -4,6 +4,7 @@ from math import inf
 class Vertex:
     def __init__(self, label):
         self.label = label
+        self.key = inf
         self.adj = dict()       # dictionary of adjacent vertexes
         self.color = 'white'
         self.dist = inf         # distance to vertex from initial vertex
