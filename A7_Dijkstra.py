@@ -25,11 +25,9 @@ class Solution:
         """
         r = gr.vertexes[r_label]
         r.dist = 0
-        s_queue = dict()
         v_queue = {k: v.dist for k, v in gr.vertexes.items()}
         while v_queue:
             v_queue, u = self.extract_min(v_queue)
-            s_queue[u] = gr.vertexes[u].dist
             for k, v in gr.vertexes[u].adj.items():
                 self.relax(u, k, v_queue)
 

@@ -15,14 +15,14 @@ class Solution:
         Finds Minimal Spanning Tree (MST) for the Graph by Prim algorithm
         """
         r = gr.vertexes[r_label]
-        r.key = 0
-        v_queue = {k: v.key for k, v in gr.vertexes.items()}
+        r.dist = 0
+        v_queue = {k: v.dist for k, v in gr.vertexes.items()}
         while v_queue:
             v_queue, u = self.extract_min(v_queue)
             for k, v in gr.vertexes[u].adj.items():
-                if k in v_queue and gr.edges[(u, k)] < gr.vertexes[k].key:
+                if k in v_queue and gr.edges[(u, k)] < gr.vertexes[k].dist:
                     gr.vertexes[k].parent = gr.vertexes[u]
-                    gr.vertexes[k].key = gr.edges[(u, k)]
+                    gr.vertexes[k].dist = gr.edges[(u, k)]
                     v_queue[k] = gr.edges[(u, k)]
         mst = [(gr.vertexes[k].parent.label, gr.vertexes[k].label) for k in gr.vertexes.keys() if k != r_label]
         return mst
