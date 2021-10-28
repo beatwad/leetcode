@@ -15,7 +15,7 @@ class Solution:
             buy[i] = max(buy[i-1], sell[i-2] - prices[i-1])
             # you can stay in sell state if do nothing or buy stock
             sell[i] = max(sell[i-1], buy[i-1] + prices[i-1])
-        return max(sell[-1], sell[-1])
+        return max(buy[-1], sell[-1])
 
 
 if __name__ == '__main__':
