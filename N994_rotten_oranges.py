@@ -27,7 +27,6 @@ class Solution:
 
 if __name__ == '__main__':
     sol = Solution()
-    # print(sol.orangesRotting([[2, 1, 1], [1, 1, 0], [0, 1, 1]]))
     assert sol.orangesRotting([[0]]) == 0
     assert sol.orangesRotting([[1]]) == -1
     assert sol.orangesRotting([[2]]) == 0
