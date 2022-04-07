@@ -4,36 +4,18 @@ from collections import Counter
 
 class Solution:
     def deleteAndEarn(self, nums: List[int]) -> int:
-        num_counter = Counter(nums)
-        total_sum = 0
-        for k, v in num_counter.items():
-            total_sum += k*v
+        gains = Counter(nums)
+        max_number = max(gains.keys())
+        for k, v in gains.items():
+            gains[k] *= k
 
-        def max_points(x):
-            gain = 0
-            return max(max_points(x-1), max_points(x-2) + gain)
+        max_sums = [0 for _ in range(max_number+1)]
+        max_sums[1] = gains[1]
 
-        def helper(total_sum, num_counter):
-            best_key, max_sum = None, 0
-            for k, v in num_counter.items():
-                num_sum = total_sum - k * v
-                if k-1 in num_counter: num_sum -= (k-1) * num_counter[k-1]
-                if k+1 in num_counter: num_sum -= (k+1) * num_counter[k+1]
-                if k*v + num_sum > max_sum:
-                    max_sum = k*v + num_sum
-                    best_key = k
-            return best_key, best_key * num_counter[best_key]
+        for i in range(2, max_number+1):
+            max_sums[i] = max(max_sums[i-1], max_sums[i-2] + gains[i])
 
-        res = 0
-        while num_counter:
-            best_key, max_sum = helper(total_sum, num_counter)
-            res += max_sum
-            total_sum -= max_sum
-            del num_counter[best_key]
-            if best_key-1 in num_counter: del num_counter[best_key-1]
-            if best_key+1 in num_counter: del num_counter[best_key+1]
-
-        return res
+        return max_sums[-1]
 
 
 if __name__ == '__main__':
