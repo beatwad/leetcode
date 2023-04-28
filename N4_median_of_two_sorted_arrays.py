@@ -1,62 +1,49 @@
 class Solution:
     def findMedianSortedArrays(self, nums1: list, nums2: list) -> float:
-        merged_nums = self.merge(nums1, nums2)
-        return self.find_median(merged_nums)[0]
-
-    @staticmethod
-    def find_median(arr):
-        quot, remain = divmod(len(arr), 2)
-        if remain == 0:
-            return (arr[quot - 1] + arr[quot]) / 2, quot
+        l = len(nums1) + len(nums2)
+        if l % 2 == 1:
+            return self.fm(nums1, nums2, l // 2)
         else:
-            return arr[quot], quot
+            return (self.fm(nums1, nums2, l // 2) + self.fm(nums1, nums2, l // 2 - 1)) / 2
 
-    def binary_search_median(self, arr, med):
-        ind = self.find_median(arr)[1]
-        if len(arr) == 1:
-            return arr[0]
-        if arr[ind - 1] <= med <= arr[ind]:
-            return arr[ind]
-        elif arr[ind] >= med:
-            return self.binary_search_median(arr[:ind], med)
+    def fm(self, nums1, nums2, mi3) -> float:
+        """ Main idea:
+            - if median of joined list (m3) is lesser than sum of indices of medians of two arrays (mi1 and mi2),
+            than median is not in bigger part of at least one array. And this array has bigger median value
+            than another. So we drop bigger part of this array
+            - if index of median of joined list is bigger than sum of indices medians of two arrays,
+            than median is not in lesser part of at least one array. And this array has lesser median value
+            than another. So we drop lesser part of this array and also decrease median index value on mi1+1 or mi2+1
+            (depends on which array has lesser median)
+            - than we recursively search median in changed arrays
+             """
+        if not nums1:
+            return nums2[mi3]
+        if not nums2:
+            return nums1[mi3]
+
+        mi1 = len(nums1) // 2
+        mv1 = nums1[mi1]
+        mi2 = len(nums2) // 2
+        mv2 = nums2[mi2]
+
+        if mi1 + mi2 < mi3:
+            if mv1 < mv2:
+                return self.fm(nums1[mi1+1:], nums2, mi3 - mi1 - 1)
+            else:
+                return self.fm(nums1, nums2[mi2+1:], mi3 - mi2 - 1)
         else:
-            return self.binary_search_median(arr[ind:], med)
-
-    def merge(self, nums1, nums2):
-        if nums1 == [] or nums2 == []:
-            return nums1 + nums2
-        elif nums1[-1] <= nums2[0]:
-            return nums1 + nums2
-        elif nums2[-1] <= nums1[0]:
-            return nums2 + nums1
-
-        med1, med_ind1 = self.find_median(nums1)
-        med2, med_ind2 = self.find_median(nums2)
-
-        if med1 == med2:
-            merged_nums = self.merge(nums1[:med_ind1], nums2[:med_ind2]) + self.merge(nums1[med_ind1:],
-                                                                                      nums2[med_ind2:])
-            return merged_nums
-
-        if med2 < med1:
-            nums1, nums2 = nums2, nums1
-            med1, med_ind1, med2, med_ind2 = med2, med_ind2, med1, med_ind1
-
-        if nums1[-1] <= med2:
-            merged_nums = self.merge(nums1, nums2[:med_ind2]) + nums2[med_ind2:]
-            return merged_nums
-
-        med_val = self.binary_search_median(nums1[med_ind1:len(nums1)], med2)
-        ind = nums1.index(med_val)
-        merged_nums = self.merge(nums1[:ind], nums2[:med_ind2]) + self.merge(nums1[ind:], nums2[med_ind2:])
-
-        return merged_nums
+            if mv1 > mv2:
+                return self.fm(nums1[:mi1], nums2, mi3)
+            else:
+                return self.fm(nums1, nums2[:mi2], mi3)
 
 
 if __name__ == '__main__':
     sol = Solution()
     assert sol.findMedianSortedArrays([1], []) == 1
     assert sol.findMedianSortedArrays([], [2]) == 2
+    assert sol.findMedianSortedArrays([], [2, 3]) == 2.5
     assert sol.findMedianSortedArrays([1, 3], [2]) == 2
     assert sol.findMedianSortedArrays([0, 0], [0, 0]) == 0
     assert sol.findMedianSortedArrays([1, 2], [3, 4]) == 2.5
