@@ -7,6 +7,22 @@ class Solution:
                 return False
         return True
 
+    def window(self, nums: list, k: int) -> list:
+        deque = nums[:k]
+        me = max(deque)
+        res = [me]
+
+        for i in range(k, len(nums)):
+            e = deque.pop(0)
+            deque.append(nums[i])
+            if me == e:
+                me = max(deque)
+            elif deque[-1] > me:
+                me = deque[-1]
+            res.append(me)
+
+        return res
+
 
 if __name__ == '__main__':
     sol = Solution()
@@ -19,3 +35,6 @@ if __name__ == '__main__':
     assert sol.dot_and_triangle([1, 1], [1, 5], [4, 2], [5, 4]) is False
     assert sol.dot_and_triangle([1, 1], [1, 5], [4, 2], [0, 0]) is False
     assert sol.dot_and_triangle([1, 1], [1, 5], [4, 2], [10, 10]) is False
+
+    assert sol.window([-5, 2, -1, 5, 2, -3, 10, 2, 7], 3) == [2, 5, 5, 5, 10, 10, 10]
+
