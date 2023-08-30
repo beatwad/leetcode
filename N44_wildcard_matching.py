@@ -9,16 +9,16 @@ class Solution:
             if j == len(p):
                 return i == len(s)
 
-            match = i < len(s) and (s[i] == p[j] or p[j] == '?' or p[j] == '*')
-
             if p[j] == '*':
-                ans = (match and dp(i+1, j) or dp(i, j+1) or (match and dp(i+1, j+1)))
+                res = (i < len(s) and dp(i+1, j)) or dp(i, j+1) or (i < len(s) and dp(i+1, j+1))
+            elif i < len(s) and (s[i] == p[j] or p[j] == '?'):
+                res = dp(i+1, j+1)
             else:
-                ans = match and dp(i+1, j+1)
+                res = False
 
-            memo[(i, j)] = ans
+            memo[(i, j)] = res
 
-            return ans
+            return res
 
         return dp(0, 0)
 
