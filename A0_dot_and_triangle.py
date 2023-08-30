@@ -19,4 +19,3 @@ if __name__ == '__main__':
     assert sol.dot_and_triangle([1, 1], [1, 5], [4, 2], [5, 4]) is False
     assert sol.dot_and_triangle([1, 1], [1, 5], [4, 2], [0, 0]) is False
     assert sol.dot_and_triangle([1, 1], [1, 5], [4, 2], [10, 10]) is False
-
