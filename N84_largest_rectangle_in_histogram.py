@@ -17,4 +17,6 @@ class Solution:
 
 if __name__ == '__main__':
     sol = Solution()
-    assert sol.largestRectangleArea([2, 1, 5, 6, 2, 3]) == 10
+    # assert sol.largestRectangleArea([2, 1, 5, 6, 2, 3]) == 10
+    assert sol.largestRectangleArea([1, 1, 5, 1, 1, 1]) == 6
+    # assert sol.largestRectangleArea([0, 1, 5, 1, 0, 1]) == 5
